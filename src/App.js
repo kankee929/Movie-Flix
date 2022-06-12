@@ -15,7 +15,7 @@ function App() {
   //Get movie list from API and store it in local state variable
   const requestAPI = async (searchValue) => {
     const Url = `http://www.omdbapi.com/?s=${searchValue}&apikey=386f485c`;
-  
+
     const response = await fetch(Url);
     const responseJson = await response.json();
 
@@ -30,35 +30,21 @@ function App() {
   };
 
   //Get data from Local Browser Storage
-  const getFromLocalStorage=()=>{
-    const favListLocal=JSON.parse(localStorage.getItem('FavMovie-List'))
-    setFavourites(favListLocal)
-  }
+  const getFromLocalStorage = () => {
+    const favListLocal = JSON.parse(localStorage.getItem("FavMovie-List"));
+    setFavourites(favListLocal);
+  };
 
   //Add Movies to favourite List and call Local Storage function to store favourites list in browser storage
   const FavArr = (movie) => {
     let favouritesList;
-    let inList = false; //Boolean value to restrict duplication in favourite list
 
-    //if local state for favoruite is empty should add the item to block scope array i.e., favouritesList
-    if (favourites.length === 0) {
-      favouritesList = [...favourites, movie];
-      setFavourites(favouritesList);
-      addToLocalStorage(favouritesList);
-    } else if (favourites.length > 0) {
-      favourites.map((data) =>
-        data.imdbID === movie.imdbID ? (inList = true) : (inList = false)
-      );
-
-      if (!inList) {
-        favouritesList = [...favourites, movie];
-        setFavourites(favouritesList);
-        addToLocalStorage(favouritesList);
-      }
-    }
-    
+    favouritesList = [...favourites, movie];
+    favouritesList = Array.from(new Set(favouritesList)); //to remove duplicates from favourite list
+    setFavourites(favouritesList);
+    addToLocalStorage(favouritesList);
   };
-  
+
   //Remove movies from the favourite list and local storage as well
   const RemoveFavArr = (movie) => {
     let favouritesList = [
@@ -70,8 +56,11 @@ function App() {
 
   useEffect(() => {
     requestAPI(searchValue);
-    getFromLocalStorage();
   }, [searchValue]);
+
+  useEffect(() => {
+    getFromLocalStorage();
+  }, []);
 
   return (
     <div className="container-fluid movie-app">
