@@ -68,3 +68,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### API Link Used
+API link used to pull and search movie database is given below:
+http://www.omdbapi.com/
+
+A key is required to request for data from the server. It can be obtained by registering on the website for FREE.
+
